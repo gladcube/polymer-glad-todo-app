@@ -1,0 +1,46 @@
+{
+  "name": "glad-todo-app",
+  "version": "0.0.1",
+  "authors": [
+    "akihitofujiwara <a-fujiwara@glad-cube.com>"
+  ],
+  "description": "",
+  "main": [
+    "glad-todo-app.html"
+  ],
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public",
+    "demo",
+    "src",
+    "components",
+    "index.js",
+    "build.js",
+    "package.json",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "polymer": "~1.3.1",
+    "glad-prelude-ls": "~0.0.4",
+    "paper-header-panel": "~1.1.5",
+    "paper-toolbar": "~1.1.4",
+    "iron-icons": "~1.1.3",
+    "paper-fab": "~1.2.0",
+    "paper-icon-button": "~1.1.1",
+    "paper-item": "~1.2.1",
+    "iron-list": "~1.3.1",
+    "paper-styles": "~1.1.4",
+    "neon-animation": "PolymerElements/neon-animation#~1.2.2",
+    "paper-checkbox": "~1.1.3",
+    "paper-dialog": "~1.0.4",
+    "iron-form": "~1.0.16",
+    "paper-input": "~1.1.11",
+    "paper-button": "~1.0.11"
+  }
+}

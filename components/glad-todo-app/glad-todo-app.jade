@@ -1,0 +1,73 @@
+link(rel="import" href="../../bower_components/polymer/polymer.html")
+link(rel="import" href="../../bower_components/neon-animation/neon-animations.html")
+link(rel="import" href="../../bower_components/iron-icons/iron-icons.html")
+link(rel="import" href="../../bower_components/iron-icons/editor-icons.html")
+link(rel="import" href="../../bower_components/iron-list/iron-list.html")
+link(rel="import" href="../../bower_components/iron-form/iron-form.html")
+link(rel="import" href="../../bower_components/paper-styles/paper-styles.html")
+link(rel="import" href="../../bower_components/paper-header-panel/paper-header-panel.html")
+link(rel="import" href="../../bower_components/paper-toolbar/paper-toolbar.html")
+link(rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html")
+link(rel="import" href="../../bower_components/paper-checkbox/paper-checkbox.html")
+link(rel="import" href="../../bower_components/paper-fab/paper-fab.html")
+link(rel="import" href="../../bower_components/paper-item/paper-item.html")
+link(rel="import" href="../../bower_components/paper-dialog/paper-dialog.html")
+link(rel="import" href="../../bower_components/paper-input/paper-input.html")
+link(rel="import" href="../../bower_components/paper-button/paper-button.html")
+link(rel="import" href="../../bower_components/glad-prelude-ls/glad-prelude-ls.html")
+
+dom-module#glad-todo-app
+  style(is="custom-style").
+    :host {
+      display: block;
+      position: relative;
+    }
+    :host[selection] paper-toolbar {
+      background-color: var(--paper-indigo-a200);
+    }
+    :host:not([selection]) .on.selection {
+      display: none;
+    }
+    paper-toolbar {
+      transition-property: background-color;
+      transition-duration: 0.3s;
+      transition-timing-function: linear;
+    }
+    paper-fab {
+      position: absolute;
+      bottom: 30px;
+      right: 30px;
+    }
+    paper-item[done] {
+      text-decoration: line-through;
+    }
+    paper-item[done]:not(:hover):not([selected]) {
+      opacity: 0.3;
+    }
+  template
+    paper-header-panel
+      paper-toolbar
+        h2.flex [[title]]
+        paper-icon-button.on.selection(icon="undo" on-tap="make_them_undone")
+        paper-icon-button.on.selection(icon="done" on-tap="make_them_done")
+        paper-icon-button.on.selection(icon="delete" on-tap="delete_them")
+      .layout.vertical
+        iron-list(items="[[todos]]" multi-selection selection-enabled selected-items="{{selected_items}}").fit
+          template
+            paper-item(selected$="[[selected]]" item="[[item]]" done$="[[item.done]]")
+              paper-checkbox(checked="{{selected}}")
+              .flex: [[item.title]]
+              .end
+                template(is="dom-if" if="[[!item.done]]")
+                  paper-icon-button(icon="editor:mode-edit" on-tap="edit_it")
+                  paper-icon-button(icon="done" on-tap="make_it_done")
+                template(is="dom-if" if="[[item.done]]")
+                  paper-icon-button(icon="undo" on-tap="make_it_undone")
+                paper-icon-button(icon="delete" on-tap="delete_it")
+    paper-fab(icon="add" on-tap="start_creation")
+    paper-dialog(modal opened="{{opened_editor}}")
+      form(is="iron-form" on-submit="save")
+        paper-input(label="Title" value="{{todo.title}}" required auto-validate)
+        .buttons
+          paper-button(raised dialog-dismiss) Cancel
+          paper-button(raised on-tap="save") Save
